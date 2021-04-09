@@ -1,51 +1,7 @@
-## MLOps workshop with Amazon SageMaker
-Machine Learning Ops Workshop with Amazon SageMaker Pipelines: lab guides and materials.
+## Build, train, and deploy ML models with Amazon SageMaker, AWS EMEA Online Summit 2021
 
-## Introduction
+[**Boston Housing Notebook**](boston_housing.ipynb) used for the **Build, train, and deploy ML models** talk at AWS EMEA Online Summit 2021.
 
-In machine learning, you "teach" a computer to make predictions, or inferences. First, you use an algorithm and example data to train a model. Then you integrate your model into your application to generate inferences in real time and at scale. In a production environment, a model typically learns from millions of example data items and produces inferences in hundreds to less than 20 milliseconds.
-
-The following diagram illustrates the typical workflow for creating a machine learning model:
-
-![ml-concepts](images/ml-concepts-10.png)
-
-
-As the diagram illustrates, you typically perform the following activities:
-
-- Identifying a business problem and the related Machine Learning problem.
-- Data ingestion, integration and preparation.
-- Data visualization and analysis, feature engineering, model training and model evaluation.
-- Model deployment, model monitoring and debugging.
-
-These steps are regularly repeated during the lifetime of the machine learning application for multiple reasons: to include new features to adjust to changing business goals, to  retrain the models on new available data to keep high performnce of the model, to iteratively update the model architecture, and other. This workshop will demonstrate how to implement MLOps practice in your organisation and increase automation and improve quality and time-to-production.
-
-## Amazon SageMaker Pipelines - Managed machine learning CI/CD service 
-Amazon SageMaker Pipelines is the first purpose-built, easy-to-use continuous integration and continuous delivery (CI/CD) service for machine learning (ML). With SageMaker Pipelines, you can create, automate, and manage end-to-end ML workflows at scale.
-
-Orchestrating workflows across each step of the machine learning process (e.g. exploring and preparing data, experimenting with different algorithms and parameters, training and tuning models, and deploying models to production) can take months of coding.
-
-Since it is purpose-built for machine learning, SageMaker Pipelines helps you automate different steps of the ML workflow, including data loading, data transformation, training and tuning, and deployment. With SageMaker Pipelines, you can build dozens of ML models a week, manage massive volumes of data, thousands of training experiments, and hundreds of different model versions. You can share and re-use workflows to recreate or optimize models, helping you scale ML throughout your organization.
-
-Key Features:
-- Compose, manage, and reuse ML workflows.
-- Choose the best models for deploying into production.
-- Automatic tracking of models.
-- Bring CI/CD to machine learning.
-
-![SageMaker Pipelines](images/sagemaker_pipelines_intro.png)
-
-## Modules
-
-This workshops consists of four modules:
-
-- [**Module 01**](labs/01_configure_sagemaker_studio/): Configure Amazon SageMaker Studio and Jupyter notebooks kernel.
-- [**Module 02**](labs/02_initial_notebook/): Transform the data and train a model inside a Jupyter nootebook.
-- [**Module 03**](labs/03_manual_sagemaker_process_train/): Transform the data and train a model using SageMaker managed training job.
-- [**Module 04**](labs/04_workflow_sm_pipelines/): Automate the whole dataset preparation and model training pipeline with SageMaker Pipelines.
-- [**Module 05**](labs/05_model_monitor/): Analyze a training dataset to generate baseline constraints and monitor a live endpoint for violations against constraints with SageMaker Model Monitor.
-
-
-You must comply with the order of modules, since the outputs of a module are inputs of the following one.
 
 ## Prerequisites
 
@@ -74,10 +30,6 @@ Once you've chosen a region, you should create all of the resources for this wor
 
 ![Region selection screenshot](./images/region-selection.png)
 
-
-## Getting started
-
-Once you are ready to go, please start with [**Module 01**](labs/01_configure_sagemaker_studio/).
 
 ## Security
 
