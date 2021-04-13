@@ -2,6 +2,7 @@ import glob
 import numpy as np
 import os
 import json
+import pickle
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
@@ -41,3 +42,7 @@ if __name__=='__main__':
     with open('/opt/ml/processing/output/y_val.json', 'w') as outfile:
         json.dump(y_val.tolist(), outfile)
         print('Saved y_val file...\n')
+
+    with open('/opt/ml/processing/output/StandardScaler.pkl', 'wb') as outfile:
+        pickle.dump(scaler, outfile, protocol=pickle.HIGHEST_PROTOCOL)        
+        print('Saved StandardScaler file...\n')
