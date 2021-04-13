@@ -18,8 +18,7 @@ def parse_args():
     parser.add_argument('--learning_rate', type=float, default=0.1)
 
     # data directories
-    parser.add_argument('--train', type=str, default=os.environ.get('SM_CHANNEL_TRAIN'))
-    parser.add_argument('--test', type=str, default=os.environ.get('SM_CHANNEL_TEST'))
+    parser.add_argument('--input', type=str, default=os.environ.get('SM_CHANNEL_INPUT'))
 
     # model directory
     parser.add_argument('--sm-model-dir', type=str, default=os.environ.get('SM_MODEL_DIR'))
@@ -27,32 +26,31 @@ def parse_args():
     return parser.parse_known_args()
 
 
-def get_train_data(train_dir):
+def get_train_data(data_dir):
 
-    x_train = np.load(os.path.join(train_dir, 'x_train.npy'))
-    y_train = np.load(os.path.join(train_dir, 'y_train.npy'))
-    print('x train', x_train.shape,'y train', y_train.shape)
+    X_train = np.load(os.path.join(data_dir, 'X_train.npy'))
+    y_train = np.load(os.path.join(data_dir, 'y_train.npy'))
+    print('X train', X_train.shape,'y train', y_train.shape)
 
-    return x_train, y_train
+    return X_train, y_train
 
 
-def get_test_data(test_dir):
+def get_test_data(data_dir):
 
-    x_test = np.load(os.path.join(test_dir, 'x_test.npy'))
-    y_test = np.load(os.path.join(test_dir, 'y_test.npy'))
-    print('x test', x_test.shape,'y test', y_test.shape)
+    X_test = np.load(os.path.join(data_dir, 'X_test.npy'))
+    y_test = np.load(os.path.join(data_dir, 'y_test.npy'))
+    print('X test', X_test.shape,'y test', y_test.shape)
 
-    return x_test, y_test
+    return X_test, y_test
 
 
 if __name__ == "__main__":
 
     args, _ = parse_args()
 
-    print('Training data location: {}'.format(args.train))
-    print('Test data location: {}'.format(args.test))
-    x_train, y_train = get_train_data(args.train)
-    x_test, y_test = get_test_data(args.test)
+    print('Data location: {}'.format(args.input))
+    X_train, y_train = get_train_data(args.input)
+    X_test, y_test = get_test_data(args.input)
 
     device = '/cpu:0'
     print(device)
@@ -66,11 +64,11 @@ if __name__ == "__main__":
         model = get_model()
         optimizer = tf.keras.optimizers.SGD(learning_rate)
         model.compile(optimizer=optimizer, loss='mse')
-        model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs,
-                  validation_data=(x_test, y_test))
+        model.fit(X_train, y_train, batch_size=batch_size, epochs=epochs,
+                  validation_data=(X_test, y_test))
 
         # evaluate on test set
-        scores = model.evaluate(x_test, y_test, batch_size, verbose=2)
+        scores = model.evaluate(X_test, y_test, batch_size, verbose=2)
         print("\nTest MSE :", scores)
 
         # save model
