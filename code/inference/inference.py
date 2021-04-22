@@ -1,8 +1,9 @@
+import os
 import json
 import pickle
 from sklearn.preprocessing import StandardScaler
 
-with open('StandardScaler.pkl', 'rb') as outfile:
+with open(os.path.join(os.path.dirname(__file__), 'StandardScaler.pkl'), 'rb') as outfile:
     scaler = pickle.load(outfile)
 
 def input_handler(data, context):
@@ -11,15 +12,15 @@ def input_handler(data, context):
         data (obj): the request data, in format of dict or string
         context (Context): an object containing request and configuration details
     Returns:
-        (dict): a JSON-serializable dict that contains request body and headers
+        (obj): preprocessed input data
     """
     if context.request_content_type == 'application/json':
-        # pass through json (assumes it's correctly formed)
         d = data.read().decode('utf-8')
-        parsed_data = d if len(d) else ''
-        
-    print(parsed_data)
-    return scaler.transform(parsed_data)
+        parsed_data = json.loads(d) if len(d) else ''
+
+        parsed_data['instances'] = scaler.transform(parsed_data['instances']).tolist()
+
+        return json.dumps(parsed_data)
 
     raise ValueError('{{"error": "unsupported content type {}"}}'.format(
         context.request_content_type or "unknown"))
