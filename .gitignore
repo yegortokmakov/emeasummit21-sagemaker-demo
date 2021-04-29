@@ -1,2 +1,5 @@
-.ipynb_checkpoints
 data/
+code/StandardScaler.pkl
+model/
+X_val.json.out
+y_val.json
